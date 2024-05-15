@@ -29,6 +29,9 @@ class Sum {
                     l++;
                     while (nums[l] == nums[l - 1] && l < nums.length - 1) {
                         //Eliminate Duplicates
+                        //No need to update right pointer because every value on the left pointer has a distinct 
+                        //value that sums to target
+                        // Example [-2, -2, 0, 0, 2, 2]
                         l++;
                     }
                 }
