@@ -14,8 +14,8 @@ class Solution {
                 left++;
             }
             map.add(s.charAt(right));
-            right++;
             result = Math.max(result, right - left + 1);
+            right++;
         }
         
         
