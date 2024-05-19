@@ -3,25 +3,25 @@ from typing import List
 class Solution:
     def findAnagrams(self, s: str, p: str): #-> List[int]:
         output = []
-        left, right, counter = 0, 0, 0
+        l = 0
         table = {}
         for index, char in enumerate(p):
-            table[char] = 0
-        while right < len(s): 
-            if s[right] in table: 
-                # check if frequeny is valid   
-                if counter == table.get(s[right]): 
-                    table[s[right]] = table[s[right]] + 1 
-                    if right - left + 1 == len(p): 
-                        counter += 1
-                        output.append(left) 
-                        left = right + 1
-                else: 
-                    left = right + 1
+            table[char] = table.get(char, 0) + 1
+        
+        for r in range(len(s)): 
+            if s[r] in table: 
+                table[s[r]] -= 1
+                while table[s[r]] < 0: 
+                    table[s[l]] += 1
+                    l += 1
             else: 
-                left = right + 1
-            
-            right += 1 
+                table[s[r]] = -1
+                while table[s[r]] < 0: 
+                    table[s[l]] += 1
+                    l += 1
+                
+            if r - l + 1 == len(p): 
+                output.append(l)
         
         return output
     
