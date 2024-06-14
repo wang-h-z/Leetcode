@@ -1,56 +1,40 @@
 class MyCircularQueue:
 
-    def __init__(self, k: int):
-        self.size = k
-        self.queue = [None] * k
-        self.head, self.tail = 0, 0
-        self.count = 0
-
-    def enQueue(self, value: int) -> bool:
-        if self.tail < self.size - 1: 
-            if self.count + 1 > self.size: 
-                return False
-            else: 
-                self.queue[self.tail + 1] = value
-                self.tail += 1 
-                self.count += 1
-                return True
-        elif self.tail == self.size - 1: 
-            if self.count + 1 > self.size: 
-                return False
-            else: 
-                self.queue[0] = value
-                self.tail = 0
-                self.count += 1
-                return True
-
-    def deQueue(self) -> bool:
-        if not self.queue[self.head]: 
-            return False
-        if self.head < self.size - 1: 
-            self.queue[self.head] = None
-            self.head -= 1
-            
+    def __init__(self, k):
+        self.size = 0
+        self.max_size = k
+        self.t = [0]*k
+        self.front = self.rear = -1
+        
+    def enQueue(self, value):
+        if self.size == self.max_size: return False
+        else:
+            if self.rear == -1:
+                self.rear = self.front = 0
+            else:
+                self.rear = (self.rear + 1)%self.max_size
+            self.t[self.rear] = value
+            self.size += 1
             return True
-
-    def Front(self) -> int:
+        
+    def deQueue(self):
+        if self.size == 0: return False
+        if self.front == self.rear:
+            self.front = self.rear = -1
+        else:
+            self.front = (self.front + 1)%self.max_size
+        self.size -= 1
+        return True
         
 
-    def Rear(self) -> int:
-        
+    def Front(self):
+        return self.t[self.front] if self.size != 0 else -1
 
-    def isEmpty(self) -> bool:
-        
+    def Rear(self):
+        return self.t[self.rear] if self.size != 0 else -1
 
-    def isFull(self) -> bool:
-        
+    def isEmpty(self):
+        return self.size == 0
 
-
-# Your MyCircularQueue object will be instantiated and called as such:
-# obj = MyCircularQueue(k)
-# param_1 = obj.enQueue(value)
-# param_2 = obj.deQueue()
-# param_3 = obj.Front()
-# param_4 = obj.Rear()
-# param_5 = obj.isEmpty()
-# param_6 = obj.isFull()
+    def isFull(self):
+        return self.size == self.max_size
