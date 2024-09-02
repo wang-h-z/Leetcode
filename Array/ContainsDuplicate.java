@@ -1,6 +1,10 @@
 import java.util.HashSet;
 
-// O(n) time, O(n) space
+/**
+ * One pass solution. Add elements into a hashset to facilitate O(1) lookup.
+ * 
+ * TC: O(n), SC: O(n)
+ */
 class Solution {
     public boolean containsDuplicate(int[] nums) {
         HashSet<Integer> map = new HashSet<>();
